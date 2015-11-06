@@ -16,18 +16,33 @@
 		$scope.$location = $location;
 		$scope.$routeParams = $routeParams;
 
-		$scope.errorMessage = '';
-		$scope.warningMessage = '';
-		$scope.successMessage = '';
-
+		$scope.message = '';
+		$scope.messageStyle = '';
+		
 		$scope.email = '';
 		$scope.password = '';
 		$scope.user = '';
+		
+		$scope.showWarning = function(msg) {
+			
+			if (!msg || 0 === msg.length) {
+				$scope.messageStyle = '';
+			}
+			else {
+				$scope.messageStyle = 'alert-warning in';
+			}
+			
+			$scope.message = msg;
+		}
 
 		$scope.showError = function(msg, url) {
-			$scope.errorMessage = msg;
+			
+			$scope.message = msg;
+			$scope.messageStyle = 'alert-danger in';
+			
 			$timeout(function(){
-				$scope.errorMessage = '';
+				$scope.message = '';
+				$scope.messageStyle = '';
 				if ('undefined' !== typeof url) {
 					$location.url(url);
 				}
@@ -35,9 +50,13 @@
 		}
 
 		$scope.showSuccess= function(msg, url) {
-			$scope.successMessage = msg;
+			
+			$scope.message = msg;
+			$scope.messageStyle = 'alert-success in';
+			
 			$timeout(function(){
-				$scope.successMessage = '';
+				$scope.message = '';
+				$scope.messageStyle = '';
 				if ('undefined' !== typeof url) {
 					$location.url(url);
 				}
@@ -145,12 +164,12 @@
 
 		$scope.expenses = [];
 
-		$scope.$parent.warningMessage = "Loading...";
+		$scope.$parent.showWarning("Loading...");
 
 		$http.get('api/expenses/report')
 		.success(function(data, status, headers, config) {
 
-			$scope.$parent.warningMessage = "";
+			$scope.$parent.showWarning("");
 			
 			if (data.length < 1) {
 				$scope.$parent.showError("no data");
@@ -163,7 +182,7 @@
 			if (401 === status) {
 				$scope.$parent.clearAuthorization();
 			}
-			$scope.$parent.warningMessage = "";
+			$scope.$parent.showWarning("");
 			$scope.$parent.showError(data, '/');
 		});
 	})
@@ -173,12 +192,12 @@
 		$scope.labels = [];
 		$scope.data = [[]];
 
-		$scope.$parent.warningMessage = "Loading...";
+		$scope.$parent.showWarning("Loading...");
 
 		$http.get('api/expenses/graph')
 		.success(function(data, status, headers, config) {
 
-			$scope.$parent.warningMessage = '';
+			$scope.$parent.showWarning("");
 
 			if (data[0].length < 1) {
 				$scope.$parent.showError("no data");
@@ -194,7 +213,7 @@
 			if (401 === status) {
 				$scope.$parent.clearAuthorization();
 			}
-			$scope.$parent.warningMessage = '';
+			$scope.$parent.showWarning("");
 			$scope.$parent.showError(data, '/');
 		});
 	})
