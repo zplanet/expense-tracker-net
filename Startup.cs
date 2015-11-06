@@ -8,6 +8,8 @@ using Microsoft.Dnx.Runtime;
 using Microsoft.Framework.Configuration;
 using Microsoft.Framework.DependencyInjection;
 using Microsoft.Framework.Logging;
+using Microsoft.Data.Entity;
+using Expense.Models;
 
 namespace Expense
 {
@@ -21,6 +23,7 @@ namespace Expense
                 .AddJsonFile("appsettings.json")
                 .AddEnvironmentVariables();
             Configuration = builder.Build();
+            Configuration["Data:DefaultConnection:ConnectionString"] = $@"Data Source={appEnv.ApplicationBasePath}/expense.db";
         }
 
         public IConfigurationRoot Configuration { get; set; }
@@ -28,6 +31,12 @@ namespace Expense
         // This method gets called by the runtime.
         public void ConfigureServices(IServiceCollection services)
         {
+            // Add EntityFramework
+            services
+                .AddEntityFramework()
+                .AddSqlite()
+                .AddDbContext<ExpenseContext>(options => options.UseSqlite(Configuration["Data:DefaultConnection:ConnectionString"]));
+
             // Add MVC services to the services container.
             services.AddMvc();
 

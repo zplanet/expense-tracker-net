@@ -46,7 +46,6 @@
 
 		$scope.login = function() {
 
-			//$http.post('/users/login', {email: $scope.email, password: CryptoJS.SHA256($scope.password).toString()})
 			$http({
 				method: 'post',
 				url: 'api/users',
