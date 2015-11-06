@@ -35,33 +35,23 @@
 			$scope.message = msg;
 		}
 
-		$scope.showError = function(msg, url) {
-			
-			$scope.message = msg;
-			$scope.messageStyle = 'alert-danger in';
-			
-			$timeout(function(){
-				$scope.message = '';
-				$scope.messageStyle = '';
-				if ('undefined' !== typeof url) {
-					$location.url(url);
-				}
-			}, 2000);
+		var showMessage = function(msgStyle) {
+			return function(msg, url) {
+				$scope.message = msg;
+				$scope.messageStyle = msgStyle;
+				
+				$timeout(function(){
+					$scope.message = '';
+					$scope.messageStyle = '';
+					if ('undefined' !== typeof url) {
+						$location.url(url);
+					}
+				}, 2000);
+			}
 		}
 
-		$scope.showSuccess= function(msg, url) {
-			
-			$scope.message = msg;
-			$scope.messageStyle = 'alert-success in';
-			
-			$timeout(function(){
-				$scope.message = '';
-				$scope.messageStyle = '';
-				if ('undefined' !== typeof url) {
-					$location.url(url);
-				}
-			}, 2000);
-		}
+		$scope.showError = showMessage('alert-danger in');
+		$scope.showSuccess = showMessage('alert-success in');
 
 		$scope.login = function() {
 
