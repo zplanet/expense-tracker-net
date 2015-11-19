@@ -1,5 +1,5 @@
 using Microsoft.AspNet.Mvc;
-using Microsoft.Framework.Logging;
+using Microsoft.Extensions.Logging;
 
 namespace Expense.Controllers
 {
@@ -18,7 +18,7 @@ namespace Expense.Controllers
         
         public IActionResult Error()
         {
-            return View("~/Views/Shared/Error.cshtml");
+            return View();
         }        
     }
 }

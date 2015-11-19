@@ -8,13 +8,13 @@ using Expense.Models;
 namespace Expense.Migrations
 {
     [DbContext(typeof(ExpenseContext))]
-    [Migration("20151105233048_MyFirstMigration")]
+    [Migration("20151119133919_MyFirstMigration")]
     partial class MyFirstMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
-                .Annotation("ProductVersion", "7.0.0-beta8-15964");
+                .HasAnnotation("ProductVersion", "7.0.0-rc1-16348");
 
             modelBuilder.Entity("Expense.Models.Expense", b =>
                 {
@@ -49,7 +49,7 @@ namespace Expense.Migrations
                 {
                     b.HasOne("Expense.Models.User")
                         .WithMany()
-                        .ForeignKey("UserId");
+                        .HasForeignKey("UserId");
                 });
         }
     }

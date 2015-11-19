@@ -13,7 +13,7 @@ namespace Expense.Migrations
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
             modelBuilder
-                .Annotation("ProductVersion", "7.0.0-beta8-15964");
+                .HasAnnotation("ProductVersion", "7.0.0-rc1-16348");
 
             modelBuilder.Entity("Expense.Models.Expense", b =>
                 {
@@ -48,7 +48,7 @@ namespace Expense.Migrations
                 {
                     b.HasOne("Expense.Models.User")
                         .WithMany()
-                        .ForeignKey("UserId");
+                        .HasForeignKey("UserId");
                 });
         }
     }

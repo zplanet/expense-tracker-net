@@ -1,8 +1,7 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNet.Mvc;
-using Microsoft.Framework.Logging;
+using Microsoft.Extensions.Logging;
 using Expense.Models;
 
 namespace Expense.Controllers

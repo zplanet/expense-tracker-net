@@ -1,6 +1,6 @@
 using System;
 using Microsoft.AspNet.Mvc;
-using Microsoft.Framework.Logging;
+using Microsoft.Extensions.Logging;
 using Expense.Models;
 using System.Linq;
 

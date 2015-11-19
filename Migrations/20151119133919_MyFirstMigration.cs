@@ -39,7 +39,8 @@ namespace Expense.Migrations
                         name: "FK_Expense_User_UserId",
                         column: x => x.UserId,
                         principalTable: "User",
-                        principalColumn: "UserId");
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Cascade);
                 });
         }
 
